@@ -3,10 +3,22 @@ import time
 import json
 from dataverse_api_link import DataverseAPILink
 
-def msg(s): print s
-def dashes(char='-'): msg(40*char)
-def msgt(s): dashes(); msg(s); dashes()
-def msgx(s): dashes('\/'); msg(s); dashes('\/'); sys.exit(0)
+def msg(s):
+    print(s)
+
+def dashes(char='-'):
+    msg(40 * char)
+
+def msgt(s):
+    dashes()
+    msg(s)
+    dashes()
+
+def msgx(s):
+    dashes('\/')
+    msg(s)
+    dashes('\/')
+    sys.exit(0)
 
 def get_dataverse_link_object(apikey='pete'):
     server_with_api = 'http://localhost:8080/'
@@ -119,27 +131,27 @@ def add_dataverses(name, cnt=1, parent_dv_name_or_id=1, apikey='snoopy'):
 
 
 def delete_dataverses_id_greather_than(id_num, apikey):
-     if not type(id_num) == int:
-         raise('id_num needs be an int--not a %s' % type(id_num))
+    if not type(id_num) == int:
+        raise ('id_num needs be an int--not a %s' % type(id_num))
 
-     # get the DataverseAPILink
-     dat = get_dataverse_link_object(apikey=apikey)
-     dat.set_return_mode_python()
-     
-     # List the dataverses
-     dv_json = dat.list_dataverses()
-     print dv_json
-     # Pull dataverse ids > 30
-     dv_ids = [dv['id'] for dv in dv_json.get("data") if dv['id'] > id_num]
+    # get the DataverseAPILink
+    dat = get_dataverse_link_object(apikey=apikey)
+    dat.set_return_mode_python()
 
-     # reverse order ids
-     dv_ids.sort()
-     dv_ids.reverse()
+    # List the dataverses
+    dv_json = dat.list_dataverses()
+    print(dv_json)
+    # Pull dataverse ids > 30
+    dv_ids = [dv['id'] for dv in dv_json.get("data") if dv['id'] > id_num]
 
-     # delete them
-     for dv_id in dv_ids:
-         print dat.delete_dataverse_by_id(dv_id)
-     #print dat.list_datasets()
+    # reverse order ids
+    dv_ids.sort()
+    dv_ids.reverse()
+
+    # delete them
+    for dv_id in dv_ids:
+        print(dat.delete_dataverse_by_id(dv_id))
+    #print dat.list_datasets()
      
 if __name__ == '__main__':
     check_dv()

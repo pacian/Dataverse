@@ -39,8 +39,8 @@ def %s(self, param_dict, *args):
                 val = `val`
             url_path = url_path.replace('%s', val, 1)
         #url_path += '/' + str(id_val)
-    print 'OK!'
-    print 'param_dict', param_dict
+    print('OK!')
+    print('param_dict', param_dict)
     return self.%s('%s', url_path, %s, None, param_dict)""" \
                             % (self.new_function_name\
                                 , self.url_path
@@ -67,7 +67,7 @@ def %s(self, *args):
                                 , dv_link_function_to_call
                                 , self.name
                                 , self.use_api_key)
-        print code_str
+        print(code_str)
         return code_str
 
    
