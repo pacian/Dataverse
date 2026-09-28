@@ -17,10 +17,22 @@ import types # MethodType, FunctionType
 from datetime import datetime
 from single_api_spec import SingleAPISpec
 
-def msg(s): print s
-def dashes(char='-'): msg(40*char)
-def msgt(s): dashes(); msg(s); dashes()
-def msgx(s): dashes('\/'); msg(s); dashes('\/'); sys.exit(0)
+def msg(s):
+    print(s)
+
+def dashes(char='-'):
+    msg(40 * char)
+
+def msgt(s):
+    dashes()
+    msg(s)
+    dashes()
+
+def msgx(s):
+    dashes('\/')
+    msg(s)
+    dashes('\/')
+    sys.exit(0)
 
         
 class DataverseAPILink:
@@ -133,7 +145,7 @@ class DataverseAPILink:
             raise Exception('Server name is None!')
             
         if self.server_name.endswith('/'):  # cut trailing slash
-            self.server_name = self.server_name[-1]
+            self.server_name = self.server_name[:-1]
 
         server_name_pieces = self.server_name.split('//')
         if len(server_name_pieces) > 1:
@@ -250,7 +262,7 @@ class DataverseAPILink:
         :param dv_id_or_name: Dataverse id (str or int) or alias (str)
         """
         msgt('publish_dataverse')
-        print 'dv_id_or_name', dv_id_or_name
+        print('dv_id_or_name', dv_id_or_name)
         if dv_id_or_name is None:
             msgx('dv_id_or_name is None')
         
@@ -261,7 +273,7 @@ class DataverseAPILink:
         
     def show_api_info(self):
         for spec in self.API_READ_SPECS:
-            print spec[0]
+            print(spec[0])
         
 
     def bind_single_function(self, spec_list, function_name_for_api_call):
@@ -301,7 +313,7 @@ class DataverseAPILink:
 
     def make_api_write_call(self, call_name, url_path, use_api_key=False, id_val=None, params_dict={}):
         msgt(call_name)
-        print 'params_dict', params_dict
+        print('params_dict', params_dict)
         if not type(params_dict) is dict:
             msgx('params_dict is not a dict.  Found: %s' % type(params_dict))
 
@@ -414,7 +426,7 @@ if __name__=='__main__':
                     "permissionRoot":False,
                     "description":"API testing"
                     }
-    print dat.create_dataverse('root', dv_params)
+    print(dat.create_dataverse('root', dv_params))
     #print dat.create_user('some_pw', dv_params)
     """
     print dat.get_dataverse_by_id_or_alias(5)
